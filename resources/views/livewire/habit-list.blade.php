@@ -29,7 +29,7 @@ $deleteHabit = function ($id) {
     <ul class="space-y-2">
         @foreach ($habits as $habit)
             <li class="flex items-center justify-between">
-                <a href="{{ route('habit.show', $habit->slug) }}" class="text-blue-600 hover:underline">
+                <a href="{{ route('habit.show', $habit->id) }}" class="text-blue-600 hover:underline">
                     {{ $habit->name }}
                 </a>
                 <button wire:click="$emit('confirmDelete', {{ $habit->id }})" class="text-red-600 hover:text-red-800">

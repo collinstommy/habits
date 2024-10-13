@@ -18,20 +18,23 @@ mount(function (Habit $habit) {
     $this->calculateStats();
 });
 
-$startSession = function () {
+function startSession()
+{
     $this->habit->sessions()->create(['start_time' => now()]);
     $this->activeSession = $this->habit->activeSessions()->first();
-};
+}
 
-$endCurrentSession = function () {
+function endCurrentSession()
+{
     if ($this->activeSession) {
         $this->activeSession->update(['end_time' => now()]);
         $this->activeSession = null;
         $this->calculateStats();
     }
-};
+}
 
-$calculateStats = function () {
+function calculateStats()
+{
     $this->lastSevenDays = $this->habit
         ->sessions()
         ->where('start_time', '>=', now()->subDays(7))
@@ -42,16 +45,14 @@ $calculateStats = function () {
         ->map(function ($sessions) {
             return $sessions->sum(function ($session) {
                 $endTime = $session->end_time ?? now();
-
                 return $endTime->diffInMinutes($session->start_time);
             });
         });
 
     $this->maxMinutesPerDay = $this->lastSevenDays->max() ?? 0;
-};
+}
 
 ?>
-
 <div>
     <h2 class="mb-4 text-2xl font-bold">{{ $habit->name }}</h2>
 

@@ -13,6 +13,6 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-Volt::route('/habit/{habit:slug}', 'habit-page')->name('habit.show');
+Volt::route('/habit/{habit}', 'pages.habit-page')->name('habit.show');
 
 require __DIR__.'/auth.php';

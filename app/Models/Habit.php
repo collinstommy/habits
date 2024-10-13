@@ -11,6 +11,5 @@ class Habit extends Model
 
     protected $fillable = [
         'name',
-        'slug',
     ];
 }
